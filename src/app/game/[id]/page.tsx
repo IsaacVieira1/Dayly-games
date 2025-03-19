@@ -41,15 +41,12 @@ export async function generateMetadata({ params }: PropsParams): Promise<Metadat
       }
     }
 
-
-
   } catch (err) {
     return {
       title: "DalyGames - Descubra jogos incríveis para se divertir."
     }
   }
 }
-
 
 async function getData(id: string) {
   try {
@@ -61,7 +58,6 @@ async function getData(id: string) {
 }
 
 async function getGameSorted() {
-  //https://sujeitoprogramador.com/next-api/?api=game_day
   try {
     const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game_day`, { cache: "no-store" })
     return res.json();
@@ -70,16 +66,11 @@ async function getGameSorted() {
   }
 }
 
-
 export default async function Game({
   params: { id }
-}: {
-  params: { id: string }
-}) {
+}: PropsParams) {
   const data: GameProps = await getData(id)
   const sortedGame: GameProps = await getGameSorted();
-
-
 
   if (!data) {
     redirect("/")
